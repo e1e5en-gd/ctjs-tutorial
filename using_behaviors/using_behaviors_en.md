@@ -3,11 +3,11 @@ Behaviors are a pre-created set of functions/event handlers that can be assigned
 Consider the effect of the appearance of a template in a room:
 1. Let's create a project.
 2. Let's add 3 textures to it (circle, square and gear). For convenience, we'll put them in the `Texture` folder.
-![[img/add_three_texture.png]]
-3.  Let's add the `Template` folder and create a template named `Circle` there, specifying the appropriate texture.
-![[create_template_circle.png]]
-4. Let's create two more templates named `Gear` and `Rectangle` in the same way.
-![[three_template.png]]
+![](img/add_three_texture.png)
+4.  Let's add the `Template` folder and create a template named `Circle` there, specifying the appropriate texture.
+![](img/create_template_circle.png)
+5. Let's create two more templates named `Gear` and `Rectangle` in the same way.
+![](img/three_template.png)
 We add the appearance effect, i.e. when the template is created in the room. Let's make an animation of its increase in size (change the scale). To do this, we use the `tween` mod (do not forget to enable it in the project settings in the `Catmods' section).
 Add the `Creation` event to the template and write the code there:
 ```js
@@ -28,34 +28,52 @@ tween.add({
 });
 ```
 It should look like this:
-![[add_creation_event_circle.png]]
+
+![](img/add_creation_event_circle.png)
+
 Next, create a room and add a template to it. We launch it and get this effect.
-![[circle_fade_in.gif]]
+
+![](img/circle_fade_in.gif)
+
 Let's add this effect for other templates. We have 3 ways:
 1. Copy this code into each template. This will entail duplication and if we want to change something, we will have to edit it everywhere.
 2. Create a function to which the template will be passed. This method is not convenient in all cases, as we will see in the following examples.
 3. Create a behavior and add it to the templates.
+
 We will use the latter option.
 1. Let's create a behavior for the template in the appropriate folder:
-![[button_create_behavior.png]]
-2. Let's call it `fadeIn'.
-3. Add the `Creation` event and copy the code from the 'Circle` template there. We save it.
-![[behavior_event_creation.png]]
+   
+![](img/button_create_behavior.png)
+
+3. Let's call it `fadeIn`.
+4. Add the `Creation` event and copy the code from the 'Circle` template there. We save it.
+
+![](img/behavior_event_creation.png)
+
 This means that this code will be executed when creating a template with this behavior. Now you need to assign the behavior to the template.
-4. Deleting the `Creation` event in the `Circle` template.
-5. Let's add the created `fadeIn` behavior to the template using the corresponding button in the interface.
-![[add_behavior_circle.png]]
-6. Let's launch the project.
+6. Deleting the `Creation` event in the `Circle` template.
+7. Let's add the created `fadeIn` behavior to the template using the corresponding button in the interface.
+
+![](img/add_behavior_circle.png)
+
+8. Let's launch the project.
 We get the same thing. But what is the convenience? The fact is that we can add this behavior to any template. Let's add it to the `Gear` and `Rectangle` templates.
-![[add_behavior_gear.png]]
-![[add_behavior_rectangle.png]]
+
+![](img/add_behavior_gear.png)
+
+![](img/add_behavior_rectangle.png)
+
 Let's add these templates to the room and launch the project.
-![[three_template_fade_in.gif]]
+
+![](img/three_template_fade_in.gif)
+
 Now all three objects appear as they should, and we wrote the code only once. And if we change something in behavior, it will affect all the patterns at once.
 ## Dynamic addition and removal
 Let's look at a more complex example, namely adding and removing behaviors during the game. Let's add a new behavior that will be responsible for managing the active character (and there will be three characters in total).
 1. Let's add actions to control the character in the project settings.
-![[settings_actions.png]]
+
+![](img/settings_actions.png)
+
 2. Creating a behavior named `PlayerControl'. We write the code in it to process the movement with the `Frame start` event:
 ```js
 // Move by X axis
@@ -65,13 +83,19 @@ this.y += 480 * u.time * actions.MoveY.value;
 // Move
 this.move();
 ```
- As a result, we get the following.
-![[code_move_player.png]]
+As a result, we get the following.
+
+![](img/code_move_player.png)
+
 3. Let's add the behavior to the `Circle` template and launch the project.
-![[behavior_circle_move.gif]]
+
+![](img/behavior_circle_move.gif)
+
 We control our character. To control another character, we need to remove the behavior from the current character and add it to another one. To do this, add a code to the room.
 1. Let's add actions to switch the character first.
-![[actions_switch_player.png]]
+
+![](img/actions_switch_player.png)
+
 2. In the `Room start` event, we will save our characters to variables.
 ```js
 this.tmpCircle = templates.list['Circle'][0];
@@ -95,7 +119,9 @@ if (behaviors.has(this.tmpCircle, 'PlayerControl') === false) {
 ```
 4. Let's add a similar code to the `Action down` events for the `PlayerGear` and `PlayerRectangle` actions.
 5. Let's launch the project. Let's try to switch between characters and control them.
-![[switch_players.gif]]
+
+![](img/switch_players.gif)
+
 Everything works. But we can't see which character is currently selected. It's easy to fix. We will change the color of the active character. To do this, add the following code and events to the `PlayerControl` behavior:
 1. Adding the `Creation` event code:
 ```js
@@ -112,7 +138,11 @@ Everything is fine, but if we leave it that way, then when switching, the color 
 this.tint = 0xFFFFFF;
 ```
 As a result, our behavior has 4 events:
-![[all_events_behavior.png]]
+
+![](img/all_events_behavior.png)
+
 4. Let's launch the project.
-![[switch_players_color.gif]]
+
+![](img/switch_players_color.gif)
+
 As you can see, this is a very useful and simple mechanism that allows you to write code once and use it many times.
