@@ -83,7 +83,7 @@ Let's look at a more complex example, namely adding and removing behaviors durin
 
 ![](img/settings_actions.png)
 
-2. Creating a behavior named `PlayerControl'. We write the code in it to process the movement with the `Frame start` event:
+2. Creating a behavior named `PlayerControl`. We write the code in it to process the movement with the `Frame start` event:
 
 ```js
 // Move by X axis
