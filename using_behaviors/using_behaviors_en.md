@@ -145,6 +145,7 @@ this.tint = 0x58E875;
 ```
 
 If the behavior in the editor is linked to a template, then the color of the active character will change when creating the template.
+
 2. Let's add a special event for the behavior, which is called `Behavior added`. This event is executed when the behavior is added to the template during the game. Let's write the same code there:
 
 ```js
@@ -152,6 +153,7 @@ this.tint = 0x58E875;
 ```
 
 Everything is fine, but if we leave it that way, then when switching, the color will remain that way. It is necessary to repaint the template back to white.
+
 3. Let's add a special event for the behavior, which is called `Behavior removed`. It is executed when the behavior is removed from the template. Let's write the code there:
 
 ```js
