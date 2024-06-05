@@ -3,7 +3,7 @@ Behaviors are a pre-created set of functions/event handlers that can be assigned
 Consider the effect of the appearance of a template in a room:
 1. Let's create a project.
 2. Let's add 3 textures to it (circle, square and gear). For convenience, we'll put them in the `Texture` folder.
-![[add_three_texture.png]]
+![[img/add_three_texture.png]]
 3.  Let's add the `Template` folder and create a template named `Circle` there, specifying the appropriate texture.
 ![[create_template_circle.png]]
 4. Let's create two more templates named `Gear` and `Rectangle` in the same way.
