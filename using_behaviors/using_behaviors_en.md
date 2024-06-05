@@ -3,13 +3,20 @@ Behaviors are a pre-created set of functions/event handlers that can be assigned
 Consider the effect of the appearance of a template in a room:
 1. Let's create a project.
 2. Let's add 3 textures to it (circle, square and gear). For convenience, we'll put them in the `Texture` folder.
+
 ![](img/add_three_texture.png)
-4.  Let's add the `Template` folder and create a template named `Circle` there, specifying the appropriate texture.
+
+3.  Let's add the `Template` folder and create a template named `Circle` there, specifying the appropriate texture.
+
 ![](img/create_template_circle.png)
-5. Let's create two more templates named `Gear` and `Rectangle` in the same way.
+
+4. Let's create two more templates named `Gear` and `Rectangle` in the same way.
+
 ![](img/three_template.png)
-We add the appearance effect, i.e. when the template is created in the room. Let's make an animation of its increase in size (change the scale). To do this, we use the `tween` mod (do not forget to enable it in the project settings in the `Catmods' section).
+
+We add the appearance effect, i.e. when the template is created in the room. Let's make an animation of its increase in size (change the scale). To do this, we use the `tween` mod (do not forget to enable it in the project settings in the `Catmods` section).
 Add the `Creation` event to the template and write the code there:
+
 ```js
 // Setting the scale
 this.scale.x = 0;
@@ -27,6 +34,7 @@ tween.add({
     silent: true,
 });
 ```
+
 It should look like this:
 
 ![](img/add_creation_event_circle.png)
@@ -45,18 +53,19 @@ We will use the latter option.
    
 ![](img/button_create_behavior.png)
 
-3. Let's call it `fadeIn`.
-4. Add the `Creation` event and copy the code from the 'Circle` template there. We save it.
+2. Let's call it `fadeIn`.
+3. Add the `Creation` event and copy the code from the 'Circle` template there. We save it.
 
 ![](img/behavior_event_creation.png)
 
 This means that this code will be executed when creating a template with this behavior. Now you need to assign the behavior to the template.
-6. Deleting the `Creation` event in the `Circle` template.
-7. Let's add the created `fadeIn` behavior to the template using the corresponding button in the interface.
+
+4. Deleting the `Creation` event in the `Circle` template.
+5. Let's add the created `fadeIn` behavior to the template using the corresponding button in the interface.
 
 ![](img/add_behavior_circle.png)
 
-8. Let's launch the project.
+6. Let's launch the project.
 We get the same thing. But what is the convenience? The fact is that we can add this behavior to any template. Let's add it to the `Gear` and `Rectangle` templates.
 
 ![](img/add_behavior_gear.png)
@@ -75,6 +84,7 @@ Let's look at a more complex example, namely adding and removing behaviors durin
 ![](img/settings_actions.png)
 
 2. Creating a behavior named `PlayerControl'. We write the code in it to process the movement with the `Frame start` event:
+
 ```js
 // Move by X axis
 this.x += 480 * u.time * actions.MoveX.value;
@@ -83,6 +93,7 @@ this.y += 480 * u.time * actions.MoveY.value;
 // Move
 this.move();
 ```
+
 As a result, we get the following.
 
 ![](img/code_move_player.png)
@@ -97,12 +108,15 @@ We control our character. To control another character, we need to remove the be
 ![](img/actions_switch_player.png)
 
 2. In the `Room start` event, we will save our characters to variables.
+
 ```js
 this.tmpCircle = templates.list['Circle'][0];
 this.tmpGear = templates.list['Gear'][0];
 this.tmpRectangle = templates.list['Rectangle'][0];
 ```
+
 3.  In the `Action down` event for the `PlayerCircle` action, we will specify the following code:
+
 ```js
 // We check if it exists, then we delete it (if you try to delete something that does not exist, there will be an error)
 if (behaviors.has(this.tmpGear, 'PlayerControl') === true) {
@@ -117,6 +131,7 @@ if (behaviors.has(this.tmpCircle, 'PlayerControl') === false) {
     behaviors.add(this.tmpCircle, 'PlayerControl');
 }
 ```
+
 4. Let's add a similar code to the `Action down` events for the `PlayerGear` and `PlayerRectangle` actions.
 5. Let's launch the project. Let's try to switch between characters and control them.
 
@@ -124,19 +139,25 @@ if (behaviors.has(this.tmpCircle, 'PlayerControl') === false) {
 
 Everything works. But we can't see which character is currently selected. It's easy to fix. We will change the color of the active character. To do this, add the following code and events to the `PlayerControl` behavior:
 1. Adding the `Creation` event code:
+
 ```js
 this.tint = 0x58E875;
 ```
+
 If the behavior in the editor is linked to a template, then the color of the active character will change when creating the template.
 2. Let's add a special event for the behavior, which is called `Behavior added`. This event is executed when the behavior is added to the template during the game. Let's write the same code there:
+
 ```js
 this.tint = 0x58E875;
 ```
+
 Everything is fine, but if we leave it that way, then when switching, the color will remain that way. It is necessary to repaint the template back to white.
 3. Let's add a special event for the behavior, which is called `Behavior removed`. It is executed when the behavior is removed from the template. Let's write the code there:
+
 ```js
 this.tint = 0xFFFFFF;
 ```
+
 As a result, our behavior has 4 events:
 
 ![](img/all_events_behavior.png)
